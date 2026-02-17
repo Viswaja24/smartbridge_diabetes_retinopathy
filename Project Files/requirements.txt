@@ -1,0 +1,7 @@
+flask
+tensorflow
+cloudant
+Pillow
+numpy
+werkzeug
+python-dotenv

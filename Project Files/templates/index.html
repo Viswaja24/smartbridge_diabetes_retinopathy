@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetic Retinopathy Classification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div
+            style="display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; width: 100%;">
+            <div class="logo">Diabetic Retinopathy Classification</div>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                    <li><a href="{{ url_for('prediction') }}">Prediction</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="hero-section">
+            <img src="{{ url_for('static', filename='eye_diagram_hq.png') }}?v=1"
+                alt="Normal Eye vs Diabetic Retinopathy" class="hero-img">
+        </div>
+
+        <div class="about-section">
+            <div class="section-title">
+                <h2>About Project</h2>
+            </div>
+
+            <div class="grid-2-col">
+                <div class="col">
+                    <h3>Problem:</h3>
+                    <p>
+                        Diabetic Retinopathy (DR) is a common complication of diabetes mellitus, which causes lesions on
+                        the retina that effect vision. If it is not detected early, it can lead to blindness.
+                        Unfortunately, DR is not a reversible process, and treatment only sustains vision. DR early
+                        detection and treatment can significantly reduce the risk of vision loss. The manual diagnosis
+                        process of DR retina fundus images by ophthalmologists is time, effort and cost-consuming and
+                        prone to misdiagnosis unlike computer-aided methods.
+                    </p>
+                </div>
+                <div class="col">
+                    <h3>Solution:</h3>
+                    <p>
+                        In this project, we will be building a Transfer learning model that can detect and classify
+                        types of Diabetic Retinopathy. A web application is integrated with the model, from where the
+                        user can upload a Diabetic Retinopathy (DR) image like Mild DR, Severe DR, etc., and see the
+                        analyzed results on UserInterface.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

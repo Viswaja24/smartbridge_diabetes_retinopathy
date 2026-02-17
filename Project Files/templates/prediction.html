@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction - DR Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('preview-img');
+                output.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Dark Header -->
+    <header class="header-dark">
+        <h1>Diabetic Retinopathy Classification</h1>
+        <nav class="header-nav">
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+    </header>
+
+    <main class="prediction-main">
+
+        <!-- Upload Section -->
+        <div class="upload-section-new">
+            <!-- Circular Preview -->
+            <div class="image-preview-circle">
+                {% if image_file %}
+                <img src="{{ url_for('static', filename='../uploads/' ~ image_file) }}" id="preview-img"
+                    alt="Uploaded Eye">
+                {% else %}
+                <img src="{{ url_for('static', filename='OIP.webp') }}" id="preview-img" alt="Preview">
+                {% endif %}
+            </div>
+
+            <!-- Form -->
+            <form method="POST" action="{{ url_for('prediction') }}" enctype="multipart/form-data"
+                style="flex-direction: row; align-items: center; gap: 10px; background: none; box-shadow: none; border: none;">
+                <input type="file" name="image" accept="image/*" required onchange="previewImage(event)"
+                    style="background: #e0e0e0; border: none; padding: 10px; border-radius: 5px;">
+                <button type="submit" style="margin: 0; padding: 10px 20px;">Submit</button>
+            </form>
+        </div>
+
+        <!-- Result Text -->
+        <div class="dataset-text">
+            Diabetic Retinopathy Classification is :
+            <span class="highlight-prediction">{{ prediction if prediction else '...' }}</span>
+        </div>
+
+        <!-- Reference Cards (Footer) -->
+        <div class="reference-cards-container">
+            <!-- No Disease -->
+            <div class="ref-card">
+                <div class="ref-card-img">
+                    <img src="{{ url_for('static', filename='eye_diagram_hq.png') }}" alt="No DR">
+                </div>
+                <div class="ref-card-label bg-no-disease">
+                    No disease visible
+                </div>
+            </div>
+
+            <!-- Mild -->
+            <div class="ref-card">
+                <div class="ref-card-img">
+                    <img src="{{ url_for('static', filename='eye_diagram_hq.png') }}" alt="Mild">
+                </div>
+                <div class="ref-card-label bg-mild">
+                    Mild nonproliferative diabetic retinopathy (NPDR)
+                </div>
+            </div>
+
+            <!-- Moderate -->
+            <div class="ref-card">
+                <div class="ref-card-img">
+                    <img src="{{ url_for('static', filename='eye_diagram_hq.png') }}" alt="Moderate">
+                </div>
+                <div class="ref-card-label bg-moderate">
+                    Moderate NPDR
+                </div>
+            </div>
+
+            <!-- Severe -->
+            <div class="ref-card">
+                <div class="ref-card-img">
+                    <img src="{{ url_for('static', filename='eye_diagram_hq.png') }}" alt="Severe">
+                </div>
+                <div class="ref-card-label bg-severe">
+                    Severe NPDR
+                </div>
+            </div>
+
+            <!-- PDR -->
+            <div class="ref-card">
+                <div class="ref-card-img">
+                    <img src="{{ url_for('static', filename='eye_diagram_hq.png') }}" alt="PDR">
+                </div>
+                <div class="ref-card-label bg-pdr">
+                    PDR <br><span style="font-size: 0.8rem; font-weight: normal;">New vessel</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flash Messages (Hidden or subtle) -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div style="margin-top: 20px; color: red;">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+    </main>
+</body>
+
+</html>
